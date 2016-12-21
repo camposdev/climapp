@@ -80,8 +80,8 @@
       <div class="forecast-days">
         <button type="button" class="box-day" 
           ng-repeat="day in ctrl.dailyList | limitTo: 7 track by $index" 
-          ng-click=" ctrl.changeDay( day.original_time ); ctrl.selected = $index "
-          ng-class="{ '-active': select == $index }">
+          ng-click=" ctrl.changeDay( day.original_time ); selectedDay = $index "
+          ng-class="{ '-active': selectedDay == $index }">
           <h4 class="title">{{ day.time | date: 'EEE' }}</h4>
           <div class="icon">
             <i class="wi wi-forecast-io-{{ day.icon }}"></i>

@@ -13,6 +13,7 @@ app.controller('MainController', ['$rootScope', '$http', 'WebService', '$filter'
   vm.defaultLongitude = '-48.548050';
   vm.searchCity = 'Florianópolis';
   $rootScope.unitMetrics = 'ca';
+  $rootScope.selectedDay;
 
   // Mostra as informações do dia atual
   getForecast( vm.defaultLatitude, vm.defaultLongitude, null, $rootScope.unitMetrics );
@@ -38,7 +39,6 @@ app.controller('MainController', ['$rootScope', '$http', 'WebService', '$filter'
     if ( vm.formSearch.$valid ){
       WebService.getCity( vm.searchCity, function( res ) {
         vm.listCities = res.data.RESULTS;
-        console.log(res)
         vm.loaded = true;
       });
     }

@@ -2,7 +2,7 @@ app.factory('WebService', ['$http', function( $http ){
 
 
   // API Dark Sky
-  var apiKey = '5379a1fdb33c95b24ff31bec3f3f4f49';
+  var apiKey = '78840139b008a4a740b25540a4f59574';
 
   /**
    * Busca informações da API
@@ -38,7 +38,7 @@ app.factory('WebService', ['$http', function( $http ){
 
     var url = 'https://autocomplete.wunderground.com/aq?query=' + input + '&cb=JSON_CALLBACK';
     return $http.jsonp( url ).then( function success( res ) {
-      callback( res );
+      callback( res.data );
     });
   };
 

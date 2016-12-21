@@ -20,6 +20,7 @@ app.controller('MainController', ['$rootScope', '$http', 'WebService', '$filter'
   vm.defaultLongitude = '-48.548050';
   vm.searchCity = 'Florianópolis';
   $rootScope.unitMetrics = 'ca';
+  $rootScope.selectedDay;
 
   // Mostra as informações do dia atual
   getForecast( vm.defaultLatitude, vm.defaultLongitude, null, $rootScope.unitMetrics );
@@ -45,7 +46,6 @@ app.controller('MainController', ['$rootScope', '$http', 'WebService', '$filter'
     if ( vm.formSearch.$valid ){
       WebService.getCity( vm.searchCity, function( res ) {
         vm.listCities = res.data.RESULTS;
-        console.log(res)
         vm.loaded = true;
       });
     }
@@ -272,7 +272,7 @@ app.factory('WebService', ['$http', function( $http ){
 
 
   // API Dark Sky
-  var apiKey = '5379a1fdb33c95b24ff31bec3f3f4f49';
+  var apiKey = '78840139b008a4a740b25540a4f59574';
 
   /**
    * Busca informações da API
@@ -308,7 +308,7 @@ app.factory('WebService', ['$http', function( $http ){
 
     var url = 'https://autocomplete.wunderground.com/aq?query=' + input + '&cb=JSON_CALLBACK';
     return $http.jsonp( url ).then( function success( res ) {
-      callback( res );
+      callback( res.data );
     });
   };
 
