@@ -1,3 +1,9 @@
+/**
+ *
+ * Iniciando projeto ;)
+ *
+ */
+
 var app = angular.module('climApp', ['ngCookies', 'chart.js']);
 app.controller('MainController', ['$rootScope', '$http', 'WebService', '$filter', function( $rootScope, $http, WebService, $filter ){
 
@@ -220,6 +226,13 @@ app.controller('MainController', ['$rootScope', '$http', 'WebService', '$filter'
   }
   
 }]);
+/**
+ *
+ * Seleciona o texto do campo de busca ao
+ * para melhorar a expriência do usuário
+ *
+ */
+
 app.directive('selectOnClick', ['$window', function ($window) {
   return {
     restrict: 'A',
@@ -232,11 +245,23 @@ app.directive('selectOnClick', ['$window', function ($window) {
     }
   };
 }]);
+/**
+ *
+ * Filtrar números decimais
+ *
+ */
+
 app.filter('int', function() {
   return function( input ) {
     return parseInt(input);
   };
 });
+/**
+ *
+ * Corrige bind de texto
+ *
+ */
+
 app.filter('toTrusted', ['$sce', function( $sce ) {
   return function( text ) {
     return $sce.trustAsHtml( text) ;
@@ -245,6 +270,7 @@ app.filter('toTrusted', ['$sce', function( $sce ) {
 app.factory('WebService', ['$http', function( $http ){
 
 
+  // API Dark Sky
   var apiKey = '5379a1fdb33c95b24ff31bec3f3f4f49';
 
   /**
@@ -260,12 +286,12 @@ app.factory('WebService', ['$http', function( $http ){
   function forecast( lat, long, time, unit, callback ) {
       
     if ( time == null ) {
-      var url = 'https://api.darksky.net/forecast/' + apiKey + '/' + lat + ',' + long + '?lang=pt&units=' + unit;
+      var url = 'https://api.darksky.net/forecast/' + apiKey + '/' + lat + ',' + long + '?lang=pt&units=' + unit + '&callback=JSON_CALLBACK';
     } else {
-      var url = 'https://api.darksky.net/forecast/' + apiKey + '/' + lat + ',' + long + ',' + time + '?lang=pt&units=' + unit;
+      var url = 'https://api.darksky.net/forecast/' + apiKey + '/' + lat + ',' + long + ',' + time + '?lang=pt&units=' + unit + '&callback=JSON_CALLBACK';
     }
 
-    return  $http.get( url ).then( function success( res ) {
+    return  $http.jsonp( url ).then( function success( res ) {
               callback( res.data );
             });
   }
@@ -278,7 +304,8 @@ app.factory('WebService', ['$http', function( $http ){
    */
   
   function getCity( input, callback ) {
-    return  $http.get( 'http://autocomplete.wunderground.com/aq?query=' + input ).then( function success( res ) {
+    var url = 'http://autocomplete.wunderground.com/aq?query=' + input;
+    return  $http.jsonp( url ).then( function success( res ) {
               callback( res );
             });
   };
