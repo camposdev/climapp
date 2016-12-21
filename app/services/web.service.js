@@ -36,7 +36,7 @@ app.factory('WebService', ['$http', function( $http ){
   
   function getCity( input, callback ) {
 
-    var url = 'http://autocomplete.wunderground.com/aq?query=' + input + '&cb=JSON_CALLBACK';
+    var url = 'https://autocomplete.wunderground.com/aq?query=' + input + '&cb=JSON_CALLBACK';
     return $http.jsonp( url ).then( function success( res ) {
       callback( res );
     });
