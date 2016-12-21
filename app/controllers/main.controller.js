@@ -38,6 +38,7 @@ app.controller('MainController', ['$rootScope', '$http', 'WebService', '$filter'
     if ( vm.formSearch.$valid ){
       WebService.getCity( vm.searchCity, function( res ) {
         vm.listCities = res.data.RESULTS;
+        console.log(res)
         vm.loaded = true;
       });
     }

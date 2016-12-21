@@ -22,9 +22,9 @@ app.factory('WebService', ['$http', function( $http ){
       var url = 'https://api.darksky.net/forecast/' + apiKey + '/' + lat + ',' + long + ',' + time + '?lang=pt&units=' + unit + '&callback=JSON_CALLBACK';
     }
 
-    return  $http.jsonp( url ).then( function success( res ) {
-              callback( res.data );
-            });
+    return $http.jsonp( url ).then( function success( res ) {
+      callback( res.data );
+    });
   }
 
   /**
@@ -35,11 +35,11 @@ app.factory('WebService', ['$http', function( $http ){
    */
   
   function getCity( input, callback ) {
-    var url = 'http://autocomplete.wunderground.com/aq?query=' + input;
-    
-    return  $http.jsonp( url ).then( function success( res ) {
-              callback( res );
-            });
+
+    var url = 'http://autocomplete.wunderground.com/aq?query=' + input + '&cb=JSON_CALLBACK';
+    return $http.jsonp( url ).then( function success( res ) {
+      callback( res );
+    });
   };
 
 
