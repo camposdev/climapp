@@ -1,0 +1,33 @@
+vendor(prop, args)
+	-webkit-{prop} args
+	   -moz-{prop} args
+	    -ms-{prop} args
+	     -o-{prop} args
+	        {prop} args
+	        
+transition()
+	vendor('transition', all arguments ease-out)
+
+rounded()
+	vendor('border-radius', arguments)
+
+support-for-ie ?= true
+opacity()
+	opacity arguments
+	if support-for-ie
+		filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(arguments * 100) + ')')
+			
+text-shadow()
+	vendor('text-shadow', arguments)
+	
+drop-shadow()
+	vendor('box-shadow', arguments)
+	
+transform()
+	vendor('transform', arguments)
+
+animation()
+	vendor('animation', arguments)
+
+filter()
+	vendor('filter', arguments)

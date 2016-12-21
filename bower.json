@@ -1,0 +1,25 @@
+{
+  "name": "climapp",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Felipe Campos <felipe@oficialdesign.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.5.8",
+    "angular-cookies": "~1.5.8",
+    "angular-i18n": "~1.5.8",
+    "angular-chart.js": "^1.1.1",
+    "chart.js": "^2.4.0",
+    "weather-icons": "^2.0.10"
+  }
+}

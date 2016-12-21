@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="climApp">
+<head>
+  <base href="/climapp/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClimApp</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/vendor.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body ng-controller="MainController as ctrl" class="ng-cloak">
+  
+  <header class="header-page">
+    <div class="container">
+      <h1 class="title-page">climapp</h1>
+    </div>
+  </header><!-- End header-page -->
+    
+  <section class="search-city">
+    <div class="container">
+      <form name="ctrl.formSearch">
+        <input type="text" 
+          name="field" 
+          class="search" 
+          minlength="3" 
+          placeholder="Buscar cidade..." 
+          ng-model="ctrl.searchCity"
+          ng-change="ctrl.autoComplete( ctrl.searchCity ); changeField = true" 
+          ng-focus="searchFocus = true"
+          ng-blur="searchFocus = false"
+          ng-required="true"
+          select-on-click
+          autocomplete="off">
+        
+        <ul class="search-list" ng-class="{ 'open': searchFocus && changeField && ctrl.formSearch.field.$valid }">
+          <li class="item" ng-repeat="city in ctrl.listCities | limitTo: 5" ng-click="ctrl.selectCity( city )">
+            <span ng-bind-html="city.name | toTrusted"></span>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </section><!-- End search-city -->
+
+  <section class="daily-forecast">
+    <div class="container">
+      <h2 class="today">{{ ctrl.currentDay }}{{ ctrl.currentTime }}</h2>
+
+      <div class="box-daily" ng-class="{ 'loaded': ctrl.loaded }">
+        <div class="item -icon">
+          <i class="wi" ng-class="ctrl.currentIcon"></i>
+        </div>
+        
+        <div class="item -temp">
+          {{ ctrl.currentTemp }}
+        </div>
+        
+        <div class="item unit-items">
+          <div class="unit" ng-click=" ctrl.changeUnit('ca') " ng-class="{ '-selected': unitMetrics == 'ca' }">°C</div>
+          <div class="unit" ng-click=" ctrl.changeUnit('us') " ng-class="{ '-selected': unitMetrics == 'us' }">°F</div>
+        </div>
+        
+        <div class="item description-daily">
+          <h3 class="status">{{ ctrl.currentStatus }}</h3>
+          
+          <ul class="list-status">
+            <li class="status">Umidade: {{ ctrl.currentHumidity }}%</li>
+            <li class="status">Vento: {{ ctrl.curentMind }} km/h</li>
+          </ul>
+        </div>
+      </div><!-- End box-daily -->
+
+      <div class="box-chart">
+        <canvas id="line" height="100" class="chart chart-line" chart-data="ctrl.chart.data"
+          chart-labels="ctrl.chart.labels" chart-colors="ctrl.chart.colors" chart-options="ctrl.chart.options"
+          chart-dataset-override="ctrl.chart.datasetOverride">
+        </canvas>
+      </div><!-- End box-chart -->
+
+      <div class="forecast-days">
+        <button type="button" class="box-day" 
+          ng-repeat="day in ctrl.dailyList | limitTo: 7 track by $index" 
+          ng-click=" ctrl.changeDay( day.original_time ); ctrl.selected = $index "
+          ng-class="{ '-active': select == $index }">
+          <h4 class="title">{{ day.time | date: 'EEE' }}</h4>
+          <div class="icon">
+            <i class="wi wi-forecast-io-{{ day.icon }}"></i>
+          </div>
+          <div class="temp-status">
+            <div class="max">{{ day.temperatureMax | int }}°</div>
+            <div class="min">{{ day.temperatureMin | int }}°</div>
+          </div>
+        </button>
+      </div><!-- End forecast-days -->
+
+    </div>
+  </section><!-- End daily-forecast -->
+
+
+  <footer class="footer-page">
+    <p>2016 - Felipe Campos</p>
+  </footer>
+  
+  <script src="assets/js/vendor.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
