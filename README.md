@@ -61,7 +61,7 @@ $ gulp
 ```
 Para atualizar e compilar os arquivos automaticamente enquanto desenvolve:
 ```
-gulp watch
+$ gulp watch
 ```
 
 ## Demonstração
