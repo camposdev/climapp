@@ -393,6 +393,61 @@ body.ng-cloak {
 /*======================================
 =            Forecast Daily            =
 ======================================*/
+.daily-forecast {
+  position: relative;
+}
+.daily-forecast:after {
+  content: '';
+  position: absolute;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: url("../images/loading.svg") center center no-repeat;
+  opacity: 1;
+  -webkit-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  -moz-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  -o-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.daily-forecast.load .container {
+  opacity: 1;
+  -webkit-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  -moz-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  -o-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+}
+.daily-forecast.load:after {
+  opacity: 0;
+  -webkit-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  -moz-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  -o-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  z-index: -1;
+}
+.daily-forecast .container {
+  opacity: 0;
+  -webkit-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  -moz-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  -o-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  position: relative;
+}
 .daily-forecast .today {
   margin: 20px 0;
   text-align: center;
@@ -413,17 +468,6 @@ body.ng-cloak {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  opacity: 0;
-  -webkit-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  -moz-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  -o-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -ms-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
 }
 @media (max-width: 870px) {
   .box-daily {
@@ -432,14 +476,6 @@ body.ng-cloak {
     -ms-flex-direction: column;
     flex-direction: column;
   }
-}
-.box-daily.loaded {
-  opacity: 1;
-  -webkit-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  -moz-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  -o-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
 }
 .box-daily >.item {
   margin: 0 10px;
@@ -615,9 +651,19 @@ body.ng-cloak {
     margin: 10px;
   }
 }
-.box-day:hover {
+.box-day:hover,
+.box-day.-active {
   border-color: #fff;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255,255,255,0.2);
+}
+.box-day:hover .title,
+.box-day.-active .title {
+  opacity: 1;
+  -webkit-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  -moz-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  -o-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
 }
 .box-day:disabled {
   cursor: not-allowed;
@@ -633,6 +679,11 @@ body.ng-cloak {
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   -o-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 .box-day >.icon {
   display: block;

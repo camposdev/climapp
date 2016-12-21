@@ -7,31 +7,58 @@ app.controller('MainController', ['$rootScope', '$http', 'WebService', '$filter'
    * Inicia consumindo a API e mostrando as informações da data atual
    *
    */
-  
-  // Configurando a localização inicial
-  vm.defaultLatitude = '-27.595378';
-  vm.defaultLongitude = '-48.548050';
-  vm.searchCity = 'Florianópolis';
+
+  // Define unidade default
   $rootScope.unitMetrics = 'ca';
-  $rootScope.selectedDay;
 
-  // Mostra as informações do dia atual
-  getForecast( vm.defaultLatitude, vm.defaultLongitude, null, $rootScope.unitMetrics );
+  // Inicia com o loading na página
+  vm.loaded = false;
 
-  // Mostra os próximos 6 dias
-  getDays( vm.defaultLatitude, vm.defaultLongitude, null, $rootScope.unitMetrics );
+  // Pega latitude e longitude com HTML5
+  navigator.geolocation.getCurrentPosition(function(location) {
+    // Chama função passando coordenadas da geolocalização
+    setLocation( location.coords.latitude, location.coords.longitude );
+  }, 
+  function() {
+    // Caso não consiga a localização configura manualmente
+    setLocation( '-27.595378', '-48.548050' );
+  });
+
+  // Função que busca dados da API referente a latitude e logitude
+  function setLocation ( lat, long ) {
+    // Grava a localização atual
+    vm.defaultLatitude = lat;
+    vm.defaultLongitude = long;
+
+    // Busca o nome da cidade pela localização
+    WebService.geolocation( lat, long, function( local ) {
+      vm.searchCity = local.city + ', ' + local.state + ', ' + local.country;
+    });
+
+    // Mostra as informações do dia atual
+    getForecast( lat, long, null, $rootScope.unitMetrics );
+
+    // Mostra os próximos 6 dias
+    getDays( lat, long, null, $rootScope.unitMetrics );
+
+    // Desativa o loading da página
+    vm.loaded = true;
+  }
 
   // Atualiza a unidade de temperatura
   vm.changeUnit = function( unit ) {
+    // Atualiza a unidade selecionada
     $rootScope.unitMetrics = unit;
-
+    // Busca as informações novamente com a nova unidade selecionada
     getForecast( vm.defaultLatitude, vm.defaultLongitude, null, $rootScope.unitMetrics );
     getDays( vm.defaultLatitude, vm.defaultLongitude, null, $rootScope.unitMetrics );
   };
 
   // Atualiza informações ao selecionar outro dia
-  vm.changeDay = function( time ) {
+  vm.changeDay = function( time, index ) {
     getForecast( vm.defaultLatitude, vm.defaultLongitude, time, $rootScope.unitMetrics );
+    // Ativa botão do dia selecionado
+    vm.selectedDay = index;
   }
 
   // Lista de cidades ao digitar na busca
@@ -50,6 +77,8 @@ app.controller('MainController', ['$rootScope', '$http', 'WebService', '$filter'
 
     getForecast( res.lat, res.lon, null, $rootScope.unitMetrics );
     getDays( res.lat, res.lon, null, $rootScope.unitMetrics );
+
+    vm.selectedDay = null;
   }
   
   

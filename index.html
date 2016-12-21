@@ -42,11 +42,11 @@
     </div>
   </section><!-- End search-city -->
 
-  <section class="daily-forecast">
+  <section class="daily-forecast" ng-class="{ 'load': ctrl.loaded }">
     <div class="container">
       <h2 class="today">{{ ctrl.currentDay }}{{ ctrl.currentTime }}</h2>
 
-      <div class="box-daily" ng-class="{ 'loaded': ctrl.loaded }">
+      <div class="box-daily">
         <div class="item -icon">
           <i class="wi" ng-class="ctrl.currentIcon"></i>
         </div>
@@ -80,8 +80,8 @@
       <div class="forecast-days">
         <button type="button" class="box-day" 
           ng-repeat="day in ctrl.dailyList | limitTo: 7 track by $index" 
-          ng-click=" ctrl.changeDay( day.original_time ); selectedDay = $index "
-          ng-class="{ '-active': selectedDay == $index }">
+          ng-click=" ctrl.changeDay( day.original_time, $index ) "
+          ng-class="{ '-active': ctrl.selectedDay == $index }">
           <h4 class="title">{{ day.time | date: 'EEE' }}</h4>
           <div class="icon">
             <i class="wi wi-forecast-io-{{ day.icon }}"></i>

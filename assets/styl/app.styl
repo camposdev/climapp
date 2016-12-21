@@ -32,7 +32,7 @@ body
 		background-size cover
 		filter blur(10px)
 		opacity .2
-	&.ng-cloak 
+	&.ng-cloak
 		opacity 0
 
 /*=================================
@@ -140,6 +140,28 @@ $green = rgb(0,186,136)
 ======================================*/
 
 .daily-forecast
+	position relative
+	&:after
+		content ''
+		position absolute
+		z-index 9
+		width 100%
+		height 100%
+		top 0	
+		left 0
+		background url('../images/loading.svg') center center no-repeat
+		opacity 1
+		transition .3s
+	&.load
+		.container
+			opacity 1
+		&:after 
+			opacity 0
+			z-index -1
+	.container 
+		opacity 0
+		transition .3s
+		position relative
 	.today 
 		margin 20px 0
 		text-align center
@@ -151,13 +173,9 @@ $green = rgb(0,186,136)
 	flexbox flex 
 	align-items center
 	justify-content center
-	opacity 0
-	transition .3s
 	@media( max-width 870px )
 		position relative
 		flex-direction column
-	&.loaded 
-		opacity 1
 	>.item
 		margin 0 10px
 		&.-icon
@@ -260,9 +278,12 @@ $green = rgb(0,186,136)
 	transition .3s
 	@media( max-width 870px )
 		margin 10px
-	&:hover 
+	&:hover
+	&.-active
 		border-color white
-		background-color rgba(255, 255, 255, .1)
+		background-color rgba(255, 255, 255, .2)
+		.title
+			opacity 1
 	&:disabled 
 		cursor not-allowed
 	>.title 
@@ -271,6 +292,7 @@ $green = rgb(0,186,136)
 		margin 0
 		font-size 1.6rem
 		opacity .5
+		transition .3s
 	>.icon 
 		display block
 		text-align center
