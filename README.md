@@ -65,4 +65,4 @@ $ gulp watch
 ```
 
 ## Demonstração
-[http://felipecampos.blog.br/climapp/](http://felipecampos.blog.br/climapp/)
+[https://camposdev.github.io/climapp/](https://camposdev.github.io/climapp/)
